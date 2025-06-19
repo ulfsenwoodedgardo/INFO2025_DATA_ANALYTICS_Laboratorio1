@@ -26,6 +26,39 @@ Este proyecto cumple con los cuatro pilares de la Programación Orientada a Obje
 
 1. Clonar el repositorio:
 
-```bash
 git clone https://github.com/ulfsenwoodedgardo/INFO2025_DATA_ANALYTICS_Laboratorio1.git
 cd INFO2025_ANALISIS_DATOS_LAB1
+
+2. Crear un entorno virtual:
+
+python -m venv venv
+
+3. Activar el entorno virtual:
+
+* En Windows:
+
+venv\Scripts\activate
+
+* En Linux/Mac:
+
+source venv/bin/activate
+
+4. Instalar dependencias:
+
+pip install -r requirements.txt
+
+5. Configurar `.env` con las credenciales de tu base de datos.
+
+## Ejecución
+
+Ejecutar desde la terminal:
+
+python main.py
+
+El sistema cargará automáticamente los archivos del directorio `/files/`, realizará las validaciones y guardará cada dataset en una tabla de la base de datos MySQL.
+
+## Autor
+
+Nombre del autor: **Edgar Lubb**
+Curso: **INFO2025 - Análisis de Datos**
+
