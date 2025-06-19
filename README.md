@@ -27,5 +27,5 @@ Este proyecto cumple con los cuatro pilares de la Programación Orientada a Obje
 1. Clonar el repositorio:
 
 ```bash
-git clone https://github.com/TU_USUARIO/INFO2025_ANALISIS_DATOS_LAB1.git
+git clone https://github.com/ulfsenwoodedgardo/INFO2025_DATA_ANALYTICS_Laboratorio1.git
 cd INFO2025_ANALISIS_DATOS_LAB1
