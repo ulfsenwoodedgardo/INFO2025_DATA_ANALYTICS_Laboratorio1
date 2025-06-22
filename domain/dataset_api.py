@@ -1,39 +1,42 @@
-# Clase para cargar datos desde una API REST
 import requests
 import pandas as pd
 from domain.dataset import Dataset
 
 class DatasetAPI(Dataset):
-    """
-    Clase para representar un dataset que proviene de una API REST.
-    """
-
-    def __init__(self, fuente):
+    def __init__(self, fuente, key_path=None):
         """
-        Constructor.
-
-        Args:
-            fuente (str): URL de la API.
+        :param fuente: URL de la API
+        :param key_path: clave o ruta de claves para acceder al array de datos en el JSON
+                         Ejemplo: "provincias" o "results.items"
         """
         super().__init__(fuente)
+        self.key_path = key_path
 
     def cargar_datos(self):
-        """
-        Carga los datos desde la API (GET request).
-        Normaliza el JSON a un DataFrame.
-        Aplica validación y transformación.
-        """
         try:
             response = requests.get(self.fuente)
-
             if response.status_code == 200:
-                # Normalizar el JSON
-                df = pd.json_normalize(response.json())
+                data = response.json()
 
-                # Convertir columnas tipo lista a string
+                # Si se especificó un key_path (para APIs que tienen la data adentro)
+                if self.key_path:
+                    keys = self.key_path.split('.')
+                    for k in keys:
+                        data = data.get(k, {})
+                    # Puede ser dict vacío si no se encuentra la clave
+
+                # Normalizar a DataFrame
+                if isinstance(data, list):
+                    df = pd.json_normalize(data)
+                elif isinstance(data, dict):
+                    df = pd.json_normalize(data)
+                else:
+                    raise ValueError("Formato de datos inesperado")
+
+                # Convertir listas a string
                 df = self._convertir_listas_a_string(df)
 
-                # Guardar datos en propiedad
+                # Guardar datos
                 self.datos = df
 
                 # Validar y transformar
@@ -49,15 +52,6 @@ class DatasetAPI(Dataset):
             print(f"[ERROR] Error al cargar API: {e}")
 
     def _convertir_listas_a_string(self, df):
-        """
-        Convierte las columnas tipo lista en strings para normalizar el DataFrame.
-
-        Args:
-            df (DataFrame): DataFrame a transformar.
-
-        Returns:
-            DataFrame: DataFrame transformado.
-        """
         def es_lista(x):
             return isinstance(x, list)
 
