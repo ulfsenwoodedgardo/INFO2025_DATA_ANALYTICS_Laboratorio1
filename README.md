@@ -17,7 +17,7 @@ Proyecto desarrollado para la certificación **INFO2025 - Data Analytics**.
 ### Requisitos del sistema
 
 - Python 3.10 o superior
-- MySQL (o motor de base de datos compatible con SQLAlchemy)
+- MySQL Server (instalado y corriendo)
 
 ---
 
@@ -26,8 +26,9 @@ Proyecto desarrollado para la certificación **INFO2025 - Data Analytics**.
 1. Clonar el repositorio:
 
 ```bash
-git clone https://github.com/EdgardoNicolas/TU_REPO.git
-cd TU_REPO
+git clone https://github.com/ulfsenwoodedgardo/INFO2025_DATA_ANALYTICS_Laboratorio1.git
+
+cd INFO2025_DATA_ANALYTICS_Laboratorio1
 ````
 
 2. Crear y activar un entorno virtual:
@@ -96,14 +97,4 @@ El sistema:
 ### Autor
 
 **Edgardo Nicolás**
-INFO2025 - Data Analytics 2025
-
----
-
-### Ejemplo de ejecución
-
-*Opcional: incluir captura de consola en ejecución aquí*
-
-````
-
----
+© INFO2025 - Data Analytics 2025
