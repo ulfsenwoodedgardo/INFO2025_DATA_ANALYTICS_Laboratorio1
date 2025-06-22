@@ -1,76 +1,109 @@
+````markdown
 # INFO2025 - Análisis de Datos - Laboratorio 1
 
-## Descripción
+### Descripción
 
-Aplicación modular en Python que permite cargar automáticamente diferentes tipos de archivos de datos (`.csv`, `.xlsx`, `.json`, `.txt`), realizar validaciones básicas, transformaciones y guardar los datos en una base de datos relacional MySQL mediante SQLAlchemy.
+Aplicación modular en Python que permite:
 
-Este proyecto cumple con los cuatro pilares de la Programación Orientada a Objetos (POO):  
-    **Abstracción, Encapsulamiento, Herencia, Polimorfismo**.
+- Cargar múltiples formatos de datos (.csv, .xlsx, .json, .txt, APIs REST)
+- Validar datos básicos
+- Guardar los datos en una base de datos relacional utilizando SQLAlchemy
+- Ejecutarse fácilmente desde la consola mediante una clase principal
 
-## Estructura de la aplicación
+Proyecto desarrollado para la certificación **INFO2025 - Data Analytics**.
 
-- `main.py`: script principal de ejecución.
-- `app_loader.py`: clase que organiza la carga de archivos y persistencia.
-- `domain/`: clases relacionadas a los datasets y POO.
-- `data/`: clase para la persistencia con SQLAlchemy.
-- `files/`: carpeta que contiene los archivos de datos a procesar.
-- `.env`: configuración de acceso a la base de datos (NO se sube a GitHub).
+---
 
-## Requisitos
+### Requisitos del sistema
 
 - Python 3.10 o superior
-- MySQL Server 8.x
-- Librerías del archivo `requirements.txt`
+- MySQL (o motor de base de datos compatible con SQLAlchemy)
 
-## Instalación
+---
+
+### Instalación
 
 1. Clonar el repositorio:
-    ```
 
-    git clone https://github.com/ulfsenwoodedgardo/INFO2025_DATA_ANALYTICS_Laboratorio1.git
+```bash
+git clone https://github.com/EdgardoNicolas/TU_REPO.git
+cd TU_REPO
+````
 
-    cd INFO2025_ANALISIS_DATOS_LAB1
+2. Crear y activar un entorno virtual:
 
-    ```
+```bash
+# Windows
+python -m venv venv
+venv\Scripts\activate.bat
 
-2. Crear un entorno virtual:
+# Linux / Mac
+python3 -m venv venv
+source venv/bin/activate
+```
 
-    ```
-    python -m venv venv
-    ```
+3. Instalar las dependencias:
 
-3. Activar el entorno virtual:
+```bash
+pip install -r requirements.txt
+```
 
-    * En Windows:
+4. Configurar las variables de entorno:
 
-        ```
-        venv\Scripts\activate
-        ```
+* Renombrar el archivo `.env.example` a `.env`
+* Completar los datos de conexión a la base de datos en `.env`
 
-    * En Linux/Mac:
+```env
+DB_USER=tu_usuario_mysql
+DB_PASSWORD=tu_password
+DB_HOST=localhost
+DB_NAME=tu_base_datos
+DB_PORT=tu_puerto
+```
 
-        ```
-        source venv/bin/activate
-        ```
+---
 
-4. Instalar dependencias:
+### Ejecución
 
-    ```
-    pip install -r requirements.txt
-    ```
-    
-5. Configurar `.env` con las credenciales de tu base de datos.
+Desde la raíz del proyecto, ejecutar:
 
-## Ejecución
+```bash
+python main.py
+```
 
-Ejecutar desde la terminal:
+El sistema:
 
-    python main.py
+1. Carga todos los archivos del directorio `/files/`
+2. Procesa las APIs definidas en `app_loader.py`
+3. Aplica validaciones y transformaciones
+4. Guarda los datos en la base en tablas separadas por archivo/API
+5. Informa resultados en consola
 
-    El sistema cargará automáticamente los archivos del directorio `/files/`, realizará las validaciones y guardará cada dataset en una tabla de la base de datos MySQL.
+---
 
-## Autor
+### Tecnologías usadas
 
-Nombre del autor: **Edgardo Nicolás**
-Curso: **INFO2025 - Análisis de Datos**
+* Python 3.10+
+* Pandas
+* SQLAlchemy
+* PyMySQL
+* python-decouple
+* python-dotenv
+* requests
 
+---
+
+### Autor
+
+**Edgardo Nicolás**
+INFO2025 - Data Analytics 2025
+
+---
+
+### Ejemplo de ejecución
+
+*Opcional: incluir captura de consola en ejecución aquí*
+
+````
+
+---
