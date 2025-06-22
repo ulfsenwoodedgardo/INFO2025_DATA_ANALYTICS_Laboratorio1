@@ -22,6 +22,7 @@ Proyecto desarrollado para la certificación **INFO2025 - Data Analytics**.
 ---
 
 ### Instalación
+````
 
 1. Clonar el repositorio:
 
