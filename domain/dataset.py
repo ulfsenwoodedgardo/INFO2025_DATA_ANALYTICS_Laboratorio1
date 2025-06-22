@@ -7,12 +7,10 @@ class Dataset(ABC):
 
     @property
     def datos(self):
-        # procesar
         return self.__datos
 
     @datos.setter
     def datos(self, value):
-        # validaciones
         self.__datos = value
 
     @property
@@ -41,6 +39,41 @@ class Dataset(ABC):
             print("Transformaciones han sido aplicadas")
         else:
             print("No hay datos para transformar")
-            
+
+    def validar_esquema(self, esquema):
+        """
+        esquema: dict con la forma:
+        {
+            "columna1": {"tipo": "float64", "obligatorio": True},
+            "columna2": {"tipo": "object", "obligatorio": False},
+            ...
+        }
+        """
+        if self.datos is None:
+            raise ValueError("Datos no cargados, no se puede validar esquema")
+
+        print("\nValidando esquema...")
+
+        for columna, reglas in esquema.items():
+            if columna not in self.datos.columns:
+                print(f"[WARNING] Falta columna esperada: {columna}")
+                continue
+
+            tipo_esperado = reglas.get("tipo")
+            obligatorio = reglas.get("obligatorio", False)
+
+            # Validar tipo
+            tipo_actual = str(self.datos[columna].dtype)
+            if tipo_esperado and tipo_actual != tipo_esperado:
+                print(f"[WARNING] Tipo incorrecto en columna '{columna}': esperado {tipo_esperado}, encontrado {tipo_actual}")
+
+            # Validar valores nulos en campos obligatorios
+            if obligatorio:
+                nulos = self.datos[columna].isnull().sum()
+                if nulos > 0:
+                    print(f"[WARNING] {nulos} valores nulos en columna obligatoria '{columna}'")
+
+        print("Validación de esquema completada.")
+
     def mostrar_resumen(self):
         print(self.datos.describe(include='all') if self.datos is not None else "No hay datos")
