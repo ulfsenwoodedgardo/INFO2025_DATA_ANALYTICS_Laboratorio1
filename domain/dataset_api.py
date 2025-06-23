@@ -5,8 +5,10 @@ from domain.dataset import Dataset
 class DatasetAPI(Dataset):
     def __init__(self, fuente, key_path=None):
         """
+        DatasetAPI permite cargar datos desde APIs REST (JSON).
+        
         :param fuente: URL de la API
-        :param key_path: clave o ruta de claves para acceder al array de datos en el JSON
+        :param key_path: Ruta de claves para acceder al array de datos en el JSON (opcional)
                          Ejemplo: "provincias" o "results.items"
         """
         super().__init__(fuente)
@@ -16,6 +18,10 @@ class DatasetAPI(Dataset):
         """
         Extrae datos de un JSON anidado usando una key_path tipo 'a.b.c'.
         Lanza KeyError si alguna clave no existe.
+
+        :param data: El JSON completo recibido
+        :param key_path: Ruta de claves separadas por '.'
+        :return: Subestructura de datos obtenida
         """
         keys = key_path.split('.')
         for k in keys:
@@ -23,18 +29,26 @@ class DatasetAPI(Dataset):
                 data = data[k]
             else:
                 raise KeyError(
-                    f"Key path '{key_path}' failed at '{k}'. "
-                    f"Available keys at this level: {list(data.keys()) if isinstance(data, dict) else 'N/A'}"
+                    f"Key path '{key_path}' falló en '{k}'. "
+                    f"Claves disponibles en este nivel: {list(data.keys()) if isinstance(data, dict) else 'N/A'}"
                 )
         return data
 
     def cargar_datos(self):
+        """
+        Carga y procesa datos desde la API.
+        - Realiza GET a la URL.
+        - Extrae datos por key_path si es necesario.
+        - Convierte el resultado a DataFrame.
+        - Aplica validaciones y transformaciones.
+        """
         try:
             response = requests.get(self.fuente)
+
             if response.status_code == 200:
                 data = response.json()
 
-                # Extraer datos por key_path si se definió
+                # Si se especificó un key_path, intentar extraer la sección correspondiente
                 if self.key_path:
                     try:
                         data = self._extract_data_by_key_path(data, self.key_path)
@@ -42,18 +56,19 @@ class DatasetAPI(Dataset):
                         print(f"[ERROR] {e}")
                         return
 
-                # Normalizar a DataFrame
-                if isinstance(data, list):
-                    df = pd.json_normalize(data)
-                elif isinstance(data, dict):
-                    df = pd.json_normalize(data)
-                else:
-                    raise ValueError("Formato de datos inesperado")
+                # Verificar tipo de datos extraídos
+                if not isinstance(data, (list, dict)):
+                    print(f"[ERROR] Los datos extraídos de la API no son una lista ni un diccionario. Tipo: {type(data)}")
+                    print(f"Valor obtenido: {data}")
+                    return
 
-                # Convertir listas a string
+                # Normalizar datos a DataFrame
+                df = pd.json_normalize(data)
+
+                # Convertir listas a string para compatibilidad
                 df = self._convertir_listas_a_string(df)
 
-                # Guardar datos
+                # Guardar en atributo 'datos'
                 self.datos = df
 
                 # Validar y transformar
@@ -69,6 +84,12 @@ class DatasetAPI(Dataset):
             print(f"[ERROR] Error al cargar API: {e}")
 
     def _convertir_listas_a_string(self, df):
+        """
+        Convierte columnas que contienen listas en strings.
+        
+        :param df: DataFrame a procesar
+        :return: DataFrame transformado
+        """
         def es_lista(x):
             return isinstance(x, list)
 

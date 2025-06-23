@@ -76,9 +76,12 @@ python main.py
 El sistema realiza:
 
 1. Carga todos los archivos de `/files/` (.csv, .xlsx, .json, .txt)
-2. Aplica validaciones y transformaciones automáticas
-3. Guarda los datos en la base en tablas separadas por archivo
-4. Informa resultados en consola
+2. Procesa las APIs definidas en `AppLoader`, con soporte avanzado para `key_path` en JSON anidados
+3. Aplica validaciones y transformaciones automáticas
+4. Guarda los datos en la base en tablas separadas por archivo/API
+5. Informa resultados en consola
+6. Se asegura el cumplimiento de los principios de POO: abstracción, encapsulamiento, herencia y polimorfismo.
+
 
 ---
 
