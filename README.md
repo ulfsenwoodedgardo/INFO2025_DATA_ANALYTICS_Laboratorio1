@@ -12,6 +12,8 @@ Aplicación modular en Python que permite:
 
 Proyecto desarrollado para la certificación **INFO2025 - Data Analytics**.
 
+---
+
 ### Requisitos del sistema
 
 - Python 3.10 o superior
@@ -127,5 +129,3 @@ INFO2025 - Data Analytics 2025
 Este proyecto es de uso educativo, sin licencia comercial.
 
 ```
-
----
