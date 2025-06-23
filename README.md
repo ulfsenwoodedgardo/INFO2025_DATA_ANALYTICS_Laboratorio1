@@ -1,4 +1,9 @@
 ````markdown
+
+````
+
+---
+
 # INFO2025 - Análisis de Datos - Laboratorio 1
 
 ### Descripción
@@ -11,8 +16,6 @@ Aplicación modular en Python que permite:
 - Ejecutarse desde la consola mediante una clase principal
 
 Proyecto desarrollado para la certificación **INFO2025 - Data Analytics**.
-
-````
 
 ---
 
