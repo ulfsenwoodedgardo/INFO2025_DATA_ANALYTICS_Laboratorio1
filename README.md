@@ -127,5 +127,3 @@ INFO2025 - Data Analytics 2025
 ### Licencia
 
 Este proyecto es de uso educativo, sin licencia comercial.
-
-```
