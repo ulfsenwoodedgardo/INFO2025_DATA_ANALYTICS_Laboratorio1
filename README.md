@@ -1,8 +1,4 @@
-Te paso tu README **ajustado**, solo reordenando la parte de las APIs (sin cambiar nada más), listo para que lo pegues:
 
----
-
-````markdown
 # INFO2025 - Análisis de Datos - Laboratorio 1
 
 ### Descripción
