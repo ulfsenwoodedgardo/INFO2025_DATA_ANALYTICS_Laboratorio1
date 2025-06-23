@@ -1,6 +1,4 @@
 
----
-
 # INFO2025 - Análisis de Datos - Laboratorio 1
 
 ### Descripción
