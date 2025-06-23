@@ -12,18 +12,35 @@ class DatasetAPI(Dataset):
         super().__init__(fuente)
         self.key_path = key_path
 
+    def _extract_data_by_key_path(self, data, key_path):
+        """
+        Extrae datos de un JSON anidado usando una key_path tipo 'a.b.c'.
+        Lanza KeyError si alguna clave no existe.
+        """
+        keys = key_path.split('.')
+        for k in keys:
+            if isinstance(data, dict) and k in data:
+                data = data[k]
+            else:
+                raise KeyError(
+                    f"Key path '{key_path}' failed at '{k}'. "
+                    f"Available keys at this level: {list(data.keys()) if isinstance(data, dict) else 'N/A'}"
+                )
+        return data
+
     def cargar_datos(self):
         try:
             response = requests.get(self.fuente)
             if response.status_code == 200:
                 data = response.json()
 
-                # Si se especificó un key_path (para APIs que tienen la data adentro)
+                # Extraer datos por key_path si se definió
                 if self.key_path:
-                    keys = self.key_path.split('.')
-                    for k in keys:
-                        data = data.get(k, {})
-                    # Puede ser dict vacío si no se encuentra la clave
+                    try:
+                        data = self._extract_data_by_key_path(data, self.key_path)
+                    except KeyError as e:
+                        print(f"[ERROR] {e}")
+                        return
 
                 # Normalizar a DataFrame
                 if isinstance(data, list):
