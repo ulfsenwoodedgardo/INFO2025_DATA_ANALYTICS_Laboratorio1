@@ -1,4 +1,8 @@
+Te paso tu README **ajustado**, solo reordenando la parte de las APIs (sin cambiar nada más), listo para que lo pegues:
 
+---
+
+````markdown
 # INFO2025 - Análisis de Datos - Laboratorio 1
 
 ### Descripción
@@ -18,6 +22,7 @@ Proyecto desarrollado para la certificación **INFO2025 - Data Analytics**.
 
 - Python 3.10 o superior
 - MySQL (u otro motor de base compatible con SQLAlchemy)
+- Entorno virtual recomendado (venv)
 
 ---
 
@@ -64,29 +69,6 @@ DB_PORT=3306
 
 ---
 
-### Configuración de APIs
-
-Las APIs que se procesan están definidas en el archivo `app_loader.py`, en la variable:
-
-```python
-self.api_urls = [
-    ("URL_API", "key_path"),
-    ...
-]
-```
-
-**Ejemplo:**
-
-```python
-self.api_urls = [
-    ("https://apis.datos.gob.ar/georef/api/provincias", "provincias")
-]
-```
-
-El parámetro `"key_path"` indica qué clave del JSON contiene la lista principal de datos a cargar en tabla.
-
----
-
 ### Ejecución
 
 Desde la raíz del proyecto, ejecutar:
@@ -97,11 +79,27 @@ python main.py
 
 El sistema realiza:
 
-1. Carga automática de todos los archivos en `/files/`
-2. Procesamiento de APIs configuradas
-3. Validación y transformación de datos
-4. Guardado en la base de datos en tablas separadas
-5. Reporte de resultados en consola
+1. Carga todos los archivos de `/files/` (.csv, .xlsx, .json, .txt)
+2. Aplica validaciones y transformaciones automáticas
+3. Guarda los datos en la base en tablas separadas por archivo
+4. Informa resultados en consola
+
+---
+
+### Soporte para APIs REST
+
+* Procesa las APIs definidas en `AppLoader`
+* Soporte de `key_path` configurable para extraer arrays de datos desde JSON anidados
+* Los resultados son almacenados en la base de datos como tablas equivalentes a las APIs
+
+---
+
+### Principios de POO aplicados
+
+* **Abstracción**: separación clara entre lectura, validación y persistencia
+* **Encapsulamiento**: atributos y métodos privados donde corresponde
+* **Herencia**: clases derivadas a partir de una clase base `Dataset`
+* **Polimorfismo**: métodos redefinidos para manejar distintos formatos de archivo/API
 
 ---
 
