@@ -18,7 +18,7 @@ Proyecto desarrollado para la certificación **INFO2025 - Data Analytics**.
 
 - Python 3.10 o superior
 - MySQL (u otro motor de base compatible con SQLAlchemy)
-````markdown
+```
 
 ---
 
