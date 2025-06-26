@@ -13,7 +13,7 @@ class AppLoader:
         
         # Definición de APIs (URL + key_path opcional)
         self.api_urls = [
-            ("https://apis.datos.gob.ar/georef/api/provincias", "provincias"),
+            ("https://jsonplaceholder.typicode.com/users", None),
             # Podés agregar más APIs en el futuro
         ]
 

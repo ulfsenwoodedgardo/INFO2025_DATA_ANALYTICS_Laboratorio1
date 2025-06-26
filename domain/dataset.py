@@ -79,7 +79,7 @@ class Dataset(ABC):
             self.__datos = self.datos.drop_duplicates()
 
             for col in self.datos.select_dtypes(include="object").columns:
-                self.__datos[col] = self.datos[col].astype(str).str.strip()
+                self.__datos.loc[:, col] = self.__datos[col].astype(str).str.strip()
 
             print("Transformaciones han sido aplicadas")
         else:

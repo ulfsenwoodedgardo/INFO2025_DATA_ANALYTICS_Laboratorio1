@@ -42,6 +42,9 @@ class Datasaver:
             return
 
         try:
+            # Normalizar el nombre de la tabla (sin espacios ni guiones)
+            nombre_tabla = nombre_tabla.lower().replace("-", "_").replace(" ", "_")
+            
             df.to_sql(nombre_tabla, con=self.engine, if_exists='replace', index=False)
             print(f"Datos guardados en tabla: {nombre_tabla}")
 
